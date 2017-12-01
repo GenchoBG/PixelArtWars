@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using LearningSystem.Areas.Admin.Models;
-using LearningSystem.Data.Models;
 
 namespace LearningSystem.Infrastrucuture.Mapping
 {
