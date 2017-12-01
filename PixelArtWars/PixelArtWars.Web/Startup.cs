@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,8 @@ namespace PixelArtWars.Web
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddAutoMapper();
 
             services.AddMvc();
         }
