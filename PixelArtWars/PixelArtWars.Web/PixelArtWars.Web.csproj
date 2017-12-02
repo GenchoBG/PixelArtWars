@@ -23,4 +23,8 @@
     <ProjectReference Include="..\PixelArtWars.Services\PixelArtWars.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Games\Views\Home\" />
+  </ItemGroup>
+
 </Project>

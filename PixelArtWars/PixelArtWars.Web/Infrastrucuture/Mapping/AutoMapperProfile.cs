@@ -11,7 +11,7 @@ namespace LearningSystem.Infrastrucuture.Mapping
             var types = AppDomain
                 .CurrentDomain
                 .GetAssemblies()
-                .Where(a => a.GetName().Name.Contains("LearningSystem"))
+                .Where(a => a.GetName().Name.Contains("PixelArtWars"))
                 .SelectMany(a => a.GetTypes())
                 .ToList();
 

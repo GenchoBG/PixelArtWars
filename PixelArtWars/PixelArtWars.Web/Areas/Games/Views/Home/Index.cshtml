@@ -1,0 +1,42 @@
+﻿@model IEnumerable<GameListViewModel>
+
+<h1>Games</h1>
+
+<form>
+    <input type="text" name="search" />
+    <input type="submit" value="Search Games" />
+</form>
+<a href="/games">Clear Search</a>
+<div class="row">
+    <div class="col-md-8">
+        <form method="post" action="/games/home/create" class="form-horizontal">
+            <div class="text-danger">@this.TempData["error"]</div>
+            <div class="row">
+                <div class="col-md-4">
+                    <input class="form-control" type="text" name="theme" placeholder="Game Theme" />
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control" name="playerscount" placeholder="">
+                        <option value="2">2 players</option>
+                        <option value="4">4 players</option>
+                        <option value="6">6 players</option>
+                        <option value="8">8 players</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="submit" class="btn btn-primary" value="Create Game" />
+                </div>
+            </div>
+
+
+            <input type="hidden" name="userId" value="@this.ViewData["userId"]">
+        </form>
+    </div>
+</div>
+
+<ul class="list-group">
+    @foreach (var game in Model)
+    {
+        <li class="list-group-item">@game.Theme <a href="/games/@game.Id" class="btn btn-default">Details</a></li>
+    }
+</ul>
