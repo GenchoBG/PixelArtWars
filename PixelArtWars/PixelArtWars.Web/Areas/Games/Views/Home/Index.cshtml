@@ -37,6 +37,9 @@
 <ul class="list-group">
     @foreach (var game in Model)
     {
-        <li class="list-group-item">@game.Theme <a href="/games/@game.Id" class="btn btn-default">Details</a></li>
+        <li class="list-group-item">
+            @game.Theme @game.SignedUpCount/@game.PlayersCount
+            <a href="/games/play/details/@game.Id" class="btn btn-default">Details</a>
+        </li>
     }
 </ul>

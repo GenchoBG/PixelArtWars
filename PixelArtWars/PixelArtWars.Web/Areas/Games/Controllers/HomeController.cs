@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             var games = this.gameService
                 .GetAll(search)
+                .Where(g => g.IsActive)
                 .ProjectTo<GameListViewModel>()
                 .ToList();
 
@@ -38,12 +40,12 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
             if (!this.ModelState.IsValid)
             {
                 this.TempData["Error"] = string.Join(Environment.NewLine, this.ModelState.Values);
-                return new RedirectResult("/games");
+                return this.RedirectToAction("Index");
             }
 
             this.gameService.Create(model.Theme, model.PlayersCount, model.UserId);
 
-            return new RedirectResult($"/games?search={model.Theme}");
+            return this.RedirectToAction("Index", new { search = model.Theme });
         }
     }
 }

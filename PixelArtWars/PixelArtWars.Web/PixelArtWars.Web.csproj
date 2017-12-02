@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Games\Views\Home\" />
+    <Folder Include="Areas\Games\Views\Play\" />
   </ItemGroup>
 
 </Project>

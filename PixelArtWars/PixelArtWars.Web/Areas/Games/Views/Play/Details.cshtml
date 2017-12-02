@@ -1,0 +1,18 @@
+﻿@model GameDetailsViewModel
+
+<h1>Game with id @Model.Id and theme @Model.Theme</h1>
+
+<h3>Participants: </h3>
+@foreach (var participant in @Model.Participants)
+{
+    <div>@participant.UserName</div>
+}
+
+@if (!Model.Participants.Any(p => p.UserName == User.Identity.Name))
+{
+    <a class="btn btn-success" href="/games/play/join/@Model.Id">Join game</a>
+}
+else
+{
+    <a class="btn btn-danger" href="/games/play/leave/@Model.Id">Leave game</a>
+}

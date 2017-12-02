@@ -2,7 +2,7 @@
 using System.Linq;
 using AutoMapper;
 
-namespace LearningSystem.Infrastrucuture.Mapping
+namespace PixelArtWars.Web.Infrastrucuture.Mapping
 {
     public class AutoMapperProfile : Profile
     {

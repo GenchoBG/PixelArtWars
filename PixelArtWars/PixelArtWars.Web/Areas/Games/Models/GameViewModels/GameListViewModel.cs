@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using LearningSystem.Infrastrucuture.Mapping;
 using PixelArtWars.Data.Models;
+using PixelArtWars.Web.Infrastrucuture.Mapping;
 
 namespace PixelArtWars.Web.Areas.Games.Models.GameViewModels
 {

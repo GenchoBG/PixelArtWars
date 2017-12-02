@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Infrastrucuture.Mapping
+﻿namespace PixelArtWars.Web.Infrastrucuture.Mapping
 {
     public interface IMapFrom<T>
     {
