@@ -5,14 +5,25 @@
 <h3>Participants: </h3>
 @foreach (var participant in @Model.Participants)
 {
-    <div>@participant.UserName</div>
+    <div style="margin: 20px">
+        @participant.UserName 
+        @if (participant.HasDrawn)
+        {
+            <span class="glyphicon glyphicon-ok"></span>
+        }
+    </div>
 }
 
-@if (!Model.Participants.Any(p => p.UserName == User.Identity.Name))
+@if (Model.Participants.Any(p => p.UserName == User.Identity.Name))
 {
-    <a class="btn btn-success" href="/games/play/join/@Model.Id">Join game</a>
+    var participant = Model.Participants.First(p => p.UserName == User.Identity.Name);
+    if (!participant.HasDrawn)
+    {
+        <a class="btn btn-success" href="/games/play/draw/@Model.Id">Make Drawing</a>
+    }
+    <a class="btn btn-danger" href="/games/play/leave/@Model.Id">Leave game</a>
 }
 else
 {
-    <a class="btn btn-danger" href="/games/play/leave/@Model.Id">Leave game</a>
+    <a class="btn btn-success" href="/games/play/join/@Model.Id">Join game</a>
 }

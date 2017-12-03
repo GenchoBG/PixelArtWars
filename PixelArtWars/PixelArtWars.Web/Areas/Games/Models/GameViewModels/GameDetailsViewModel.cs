@@ -22,7 +22,8 @@ namespace PixelArtWars.Web.Areas.Games.Models.GameViewModels
                 .ForMember(m => m.Participants, opts => opts.MapFrom(g => g.Players.Select(p => new ParticipantListInGameDetailsViewModel()
                 {
                     Id = p.UserId,
-                    UserName = p.User.UserName
+                    UserName = p.User.UserName,
+                    HasDrawn = p.HasDrawn
                 })));
     }
 }

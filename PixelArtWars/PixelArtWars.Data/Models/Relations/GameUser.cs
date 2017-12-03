@@ -9,5 +9,9 @@
         public int GameId { get; set; }
 
         public Game Game { get; set; }
+
+        public bool HasDrawn { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

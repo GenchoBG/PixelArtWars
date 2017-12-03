@@ -46,5 +46,12 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             return this.RedirectToAction("Details", new { id });
         }
+
+        public IActionResult Draw(int id)
+        {
+            this.ViewData["id"] = id;
+
+            return this.View();
+        }
     }
 }
