@@ -7,7 +7,7 @@ var backgroundcolor = [255, 255, 255];
 
 function setup() {
 	var canvas = createCanvas(areasize, areasize);
-	canvas.parent('sketch-holder');
+	canvas.parent("sketch-holder");
 	initialisepixelsarray();
 }
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PixelArtWars.Data.Models;
@@ -10,12 +11,14 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
     public class PlayController : GamesBaseController
     {
         private readonly IGameService gameService;
+        private readonly IDrawingService drawingService;
         private readonly IMapper mapper;
         private readonly UserManager<User> userManager;
 
-        public PlayController(IGameService gameService, IMapper mapper, UserManager<User> userManager)
+        public PlayController(IGameService gameService, IDrawingService drawingService, IMapper mapper, UserManager<User> userManager)
         {
             this.gameService = gameService;
+            this.drawingService = drawingService;
             this.mapper = mapper;
             this.userManager = userManager;
         }
@@ -52,6 +55,16 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
             this.ViewData["id"] = id;
 
             return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult SubmitDrawing(int id, string drawing)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+
+            this.drawingService.Save(userId, id, drawing);
+
+            return this.Json(new { result = "Redirect", url = this.Url.Action("Index", "Home", new { Area = "Games" }) });
         }
     }
 }

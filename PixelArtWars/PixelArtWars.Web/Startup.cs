@@ -40,6 +40,7 @@ namespace PixelArtWars.Web
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IGameService, GameService>();
+            services.AddTransient<IDrawingService, DrawingService>();
 
             services.AddAutoMapper();
 

@@ -3,12 +3,16 @@
 
 <div>
     <div id="buttons">
-        <button class="btn btn-default">Select Color</button>
+        <button id="colorPickerButton" class="btn btn-default">Select Color</button>
         <input type="color" id="myColor">
     </div>
 </div>
 
+<input id="gameId" hidden value="@ViewData["id"]"/>
 <div id="sketch-holder"></div>
+<form action="/games/play/submitdrawing" method="post" id="myForm">
+    <input type="submit" class="btn btn-success" data-id="svn-btn" value="Save">
+</form>
 
 @section Scripts
     {
