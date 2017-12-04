@@ -1,0 +1,13 @@
+﻿@model EvaluateGameViewModel
+
+<h1>Evaluate Game - @Model.Theme</h1>
+
+<div class="row">
+    @foreach (var drawing in Model.Drawings)
+    {
+        <div class="col-md-4" style="background-color: gray; border: 2px solid black; border-radius: 10%;">
+            <img style="width: 80%" src="@drawing.ImageUrl" alt="Image"/>
+            <a href="/games/evaluate/choose?gameId=@Model.Id&userId=@drawing.UserId" class="btn btn-success">Choose</a>
+        </div>
+    }   
+</div>

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<GameListViewModel>
+    
+<h1>Evaluate games</h1>    
+
+@if (TempData.ContainsKey("error"))
+{
+  <h2 class="text-danger">@TempData["error"]</h2>
+}
+
+@if (!Model.Any())
+{
+    <h3>No games to evaluate :/</h3>
+}
+<ul class="list-group">
+    @foreach (var game in Model)
+    {
+        <li class="list-group-item">
+            @game.Theme
+            <a href="/games/evaluate/details/@game.Id" class="btn btn-default">Evaluate</a>
+        </li>
+    }
+</ul>

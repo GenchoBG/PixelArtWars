@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using PixelArtWars.Data.Models.Enums;
 
 namespace PixelArtWars.Services
 {
@@ -20,35 +21,54 @@ namespace PixelArtWars.Services
             this.host = host;
         }
 
-        public async Task Save(string userId, int gameId, string imageData)
+        public void Save(string userId, int gameId, string imageData)
         {
-            var playerGame = await this.db
+            var playerGame = this.db
                 .Games
                 .Include(g => g.Players)
                 .Where(g => g.Id == gameId)
                 .SelectMany(g => g.Players)
-                .FirstOrDefaultAsync(p => p.UserId == userId);
+                .FirstOrDefault(p => p.UserId == userId);
 
             if (playerGame != null && !playerGame.HasDrawn)
             {
-                var fileNameWithPath = $@"{this.host.WebRootPath}\images\drawings\{userId}_{gameId}.jpeg";
+                var imagePath = $@"\images\drawings\{userId}_{gameId}.jpeg";
+                var fileNameWithPath = this.host.WebRootPath + imagePath;
 
                 using (var fs = new FileStream(fileNameWithPath, FileMode.Create))
                 {
                     using (var bw = new BinaryWriter(fs))
                     {
-                        byte[] data = Convert.FromBase64String(imageData);
+                        var data = Convert.FromBase64String(imageData);
                         bw.Write(data);
                         bw.Close();
                     }
                 }
 
                 playerGame.HasDrawn = true;
-                playerGame.ImageUrl = fileNameWithPath;
+                playerGame.ImageUrl = imagePath;
+
 
                 this.db.Update(playerGame);
                 this.db.SaveChanges();
+
+                this.UpdateGameStatus(gameId);
             }
+        }
+
+        private void UpdateGameStatus(int gameId)
+        {
+            var game = this.db
+                .Games
+                .Include(g => g.Players)
+                .FirstOrDefault(g => g.Id == gameId);
+
+            if (game.Players.Count == game.PlayersCount && game.Players.All(p => p.HasDrawn))
+            {
+                game.Status = GameStauts.PendingForEvaluation;
+            }
+
+            this.db.SaveChanges();
         }
     }
 }

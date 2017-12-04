@@ -4,6 +4,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PixelArtWars.Data.Models;
+using PixelArtWars.Data.Models.Enums;
 using PixelArtWars.Services.Interfaces;
 using PixelArtWars.Web.Areas.Games.Models.GameViewModels;
 
@@ -26,7 +27,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             var games = this.gameService
                 .GetAll(search)
-                .Where(g => g.IsActive)
+                .Where(g => g.Status == GameStauts.Active)
                 .ProjectTo<GameListViewModel>()
                 .ToList();
 

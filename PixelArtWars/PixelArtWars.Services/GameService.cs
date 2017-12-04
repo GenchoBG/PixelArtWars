@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PixelArtWars.Data;
 using PixelArtWars.Data.Models;
+using PixelArtWars.Data.Models.Enums;
 using PixelArtWars.Data.Models.Relations;
 using PixelArtWars.Services.Interfaces;
 
@@ -21,7 +22,7 @@ namespace PixelArtWars.Services
             var game = new Game()
             {
                 Theme = theme,
-                IsActive = true,
+                Status = GameStauts.Active,
                 PlayersCount = playersCount
             };
 
@@ -31,8 +32,8 @@ namespace PixelArtWars.Services
             this.db.SaveChanges();
         }
 
-        public IQueryable<Game> GetAll(string search) => this.db.Games.Where(g => g.Theme.Contains(search));
-
+        public IQueryable<Game> GetAll(string search = "") => this.db.Games.Where(g => g.Theme.Contains(search));
+        
         public Game Get(int id)
             => this.db
             .Games
@@ -72,6 +73,27 @@ namespace PixelArtWars.Services
 
                 this.db.SaveChanges();
             }
+        }
+
+        public void SelectWinner(string userId, int gameId)
+        {
+            var game = this.Get(gameId);
+
+            if (game == null)
+            {
+                return;
+            }
+
+            var playerGame = game.Players.FirstOrDefault(g => g.UserId == userId);
+            if (playerGame == null)
+            {
+                return;
+            }
+
+            game.WinnerId = playerGame.UserId;
+            game.Status = GameStauts.Finished;
+
+            this.db.SaveChanges();
         }
     }
 }

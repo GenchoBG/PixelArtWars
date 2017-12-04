@@ -12,9 +12,10 @@ using System;
 namespace PixelArtWars.Data.Migrations
 {
     [DbContext(typeof(PixelArtWarsDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171204185912_gamestatus")]
+    partial class gamestatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,11 +142,7 @@ namespace PixelArtWars.Data.Migrations
                     b.Property<string>("Theme")
                         .IsRequired();
 
-                    b.Property<string>("WinnerId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("WinnerId");
 
                     b.ToTable("Games");
                 });
@@ -261,13 +258,6 @@ namespace PixelArtWars.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("PixelArtWars.Data.Models.Game", b =>
-                {
-                    b.HasOne("PixelArtWars.Data.Models.User", "Winner")
-                        .WithMany()
-                        .HasForeignKey("WinnerId");
                 });
 
             modelBuilder.Entity("PixelArtWars.Data.Models.Relations.GameUser", b =>

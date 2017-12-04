@@ -3,14 +3,15 @@
 <h1>Games</h1>
 
 <form>
-    <input type="text" name="search" />
-    <input type="submit" value="Search Games" />
+    <input type="text" name="search" placeholder="Game Title" />
+    <input class="btn btn-primary" type="submit" value="Search Games" />
+    <a class="btn btn-default" href="/games">Clear Search</a>
 </form>
-<a href="/games">Clear Search</a>
 <div class="row">
     <div class="col-md-8">
         <form method="post" action="/games/home/create" class="form-horizontal">
             <div class="text-danger">@this.TempData["error"]</div>
+
             <div class="row">
                 <div class="col-md-4">
                     <input class="form-control" type="text" name="theme" placeholder="Game Theme" />
