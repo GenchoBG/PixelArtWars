@@ -93,6 +93,20 @@ namespace PixelArtWars.Services
             game.WinnerId = playerGame.UserId;
             game.Status = GameStauts.Finished;
 
+
+            foreach (var gamePlayer in game.Players)
+            {
+                if (gamePlayer.UserId != game.WinnerId)
+                {
+                    gamePlayer.User.TotalScore -= 1;
+                }
+                else
+                {
+                    playerGame.User.TotalScore += game.PlayersCount;
+                }
+            }
+
+
             this.db.SaveChanges();
         }
     }

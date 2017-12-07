@@ -7,6 +7,7 @@ using PixelArtWars.Data.Models;
 using PixelArtWars.Data.Models.Enums;
 using PixelArtWars.Services.Interfaces;
 using PixelArtWars.Web.Areas.Games.Models.GameViewModels;
+using PixelArtWars.Web.Areas.Games.Models.ParticipantViewModels;
 
 namespace PixelArtWars.Web.Areas.Games.Controllers
 {
@@ -46,6 +47,18 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
             this.gameService.Create(model.Theme, model.PlayersCount, model.UserId);
 
             return this.RedirectToAction("Index", new { search = model.Theme });
+        }
+
+        public IActionResult Leaderboards()
+        {
+            var topUsers = this.userManager
+                .Users
+                .OrderByDescending(u => u.TotalScore)
+                .Take(10)
+                .ProjectTo<ParticipantListViewModel>()
+                .ToList();
+
+            return this.View(topUsers);
         }
     }
 }

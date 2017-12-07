@@ -1,0 +1,10 @@
+﻿@model IEnumerable<ParticipantListViewModel>
+
+<h1>Leaderboards</h1>
+
+<ul class="list-group">
+    @foreach (var participant in Model)
+    {
+        <li class="list-group-item">@participant.UserName (@participant.Id) - @participant.TotalScore</li>
+    }
+</ul>
