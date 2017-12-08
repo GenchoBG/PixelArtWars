@@ -6,8 +6,9 @@
     @foreach (var drawing in Model.Drawings)
     {
         <div class="col-md-4" style="background-color: gray; border: 2px solid black; border-radius: 10%;">
-            <img style="width: 80%" src="@drawing.ImageUrl" alt="Image"/>
+            <img style="width: 80%" src="@drawing.ImageUrl" alt="Image" />
             <a href="/games/evaluate/choose?gameId=@Model.Id&userId=@drawing.UserId" class="btn btn-success">Choose</a>
+            <a href="/games/evaluate/report?gameId=@Model.Id&userId=@drawing.UserId" onclick="return confirm('Are you sure you want to report this?')" class="btn btn-danger">Report</a>
         </div>
-    }   
+    }
 </div>

@@ -9,6 +9,8 @@ namespace PixelArtWars.Data
     {
         public DbSet<Game> Games { get; set; }
 
+        public DbSet<Report> Reports { get; set; }
+
         public PixelArtWarsDbContext(DbContextOptions<PixelArtWarsDbContext> options)
             : base(options)
         {

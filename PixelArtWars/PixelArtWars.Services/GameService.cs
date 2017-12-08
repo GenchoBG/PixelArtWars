@@ -33,7 +33,7 @@ namespace PixelArtWars.Services
         }
 
         public IQueryable<Game> GetAll(string search = "") => this.db.Games.Where(g => g.Theme.Contains(search));
-        
+
         public Game Get(int id)
             => this.db
             .Games
@@ -43,11 +43,12 @@ namespace PixelArtWars.Services
 
         public void JoinGame(string userId, int gameId)
         {
-            var game = this.db
-                .Games
-                .Include(g => g.Players)
-                .ThenInclude(pg => pg.User)
-                .FirstOrDefault(g => g.Id == gameId);
+            if (this.GameUserExists(userId, gameId))
+            {
+                return;
+            }
+
+            var game = this.Get(gameId);
 
             if (game != null)
             {
@@ -109,5 +110,10 @@ namespace PixelArtWars.Services
 
             this.db.SaveChanges();
         }
+
+        public GameUser GetGameUser(string userId, int gameId)
+            => this.Get(gameId)?.Players.FirstOrDefault(gu => gu.UserId == userId);
+
+        private bool GameUserExists(string userId, int gameId) => this.GetGameUser(userId, gameId) != null;
     }
 }
