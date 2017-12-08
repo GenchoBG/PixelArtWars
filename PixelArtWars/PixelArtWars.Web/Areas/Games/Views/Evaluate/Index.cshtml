@@ -2,6 +2,10 @@
     
 <h1>Evaluate games</h1>    
 
+@if (TempData.ContainsKey("reported"))
+{
+    <p class="text-danger">@TempData["reported"]</p>
+}
 @if (TempData.ContainsKey("error"))
 {
   <h2 class="text-danger">@TempData["error"]</h2>

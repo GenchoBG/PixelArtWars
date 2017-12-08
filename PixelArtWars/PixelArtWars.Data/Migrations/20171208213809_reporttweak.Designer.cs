@@ -12,9 +12,10 @@ using System;
 namespace PixelArtWars.Data.Migrations
 {
     [DbContext(typeof(PixelArtWarsDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171208213809_reporttweak")]
+    partial class reporttweak
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,13 +175,9 @@ namespace PixelArtWars.Data.Migrations
 
                     b.Property<int>("GameId");
 
-                    b.Property<string>("ReporterId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GameId");
-
-                    b.HasIndex("ReporterId");
 
                     b.ToTable("Reports");
                 });
@@ -309,10 +306,6 @@ namespace PixelArtWars.Data.Migrations
                         .WithMany()
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PixelArtWars.Data.Models.User", "Reporter")
-                        .WithMany()
-                        .HasForeignKey("ReporterId");
                 });
 #pragma warning restore 612, 618
         }

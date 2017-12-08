@@ -38,7 +38,11 @@ namespace PixelArtWars.Data
                 .WithOne(gu => gu.User)
                 .HasForeignKey(gu => gu.UserId);
 
-
+            builder
+                .Entity<Report>()
+                .HasOne(r => r.Reporter)
+                .WithMany()
+                .HasForeignKey(r => r.ReporterId);
         }
     }
 }

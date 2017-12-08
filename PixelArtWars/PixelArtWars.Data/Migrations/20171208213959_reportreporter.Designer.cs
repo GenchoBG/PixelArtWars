@@ -12,9 +12,10 @@ using System;
 namespace PixelArtWars.Data.Migrations
 {
     [DbContext(typeof(PixelArtWarsDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171208213959_reportreporter")]
+    partial class reportreporter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,6 +174,8 @@ namespace PixelArtWars.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("GameId");
+
+                    b.Property<int>("ReportedId");
 
                     b.Property<string>("ReporterId");
 

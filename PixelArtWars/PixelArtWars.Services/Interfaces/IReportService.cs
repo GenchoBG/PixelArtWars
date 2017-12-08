@@ -2,6 +2,6 @@
 {
     public interface IReportService
     {
-        void CreateReport(string userId, int gameId);
+        void CreateReport(int gameId, string reporterId);
     }
 }

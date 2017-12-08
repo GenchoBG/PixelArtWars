@@ -15,16 +15,14 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
     public class EvaluateController : GamesBaseController
     {
         private readonly IGameService gameService;
-        private readonly IReportService reportService;
         private readonly UserManager<User> userManager;
         private readonly IMapper mapper;
 
-        public EvaluateController(IGameService gameService, UserManager<User> userManager, IMapper mapper, IReportService reportService)
+        public EvaluateController(IGameService gameService, UserManager<User> userManager, IMapper mapper)
         {
             this.gameService = gameService;
             this.userManager = userManager;
             this.mapper = mapper;
-            this.reportService = reportService;
         }
 
         public IActionResult Index()
@@ -53,20 +51,6 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
             var model = this.mapper.Map<EvaluateGameViewModel>(game);
 
             return this.View(model);
-        }
-
-        public IActionResult Choose(string userId, int gameId)
-        {
-            this.gameService.SelectWinner(userId, gameId);
-
-            return this.RedirectToAction("Index");
-        }
-
-        public IActionResult Report(string userId, int gameId)
-        {
-            this.reportService.CreateReport(userId, gameId);
-
-            return this.RedirectToAction("Index");
         }
     }
 }
