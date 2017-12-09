@@ -1,4 +1,5 @@
-﻿using PixelArtWars.Data;
+﻿using System;
+using PixelArtWars.Data;
 using PixelArtWars.Data.Models;
 using PixelArtWars.Data.Models.Enums;
 using PixelArtWars.Services.Interfaces;
@@ -26,7 +27,8 @@ namespace PixelArtWars.Services
 
             var report = new Report()
             {
-                GameId = gameId
+                GameId = gameId,
+                Date = DateTime.UtcNow
             };
             game.Status = GameStauts.Reported;
 

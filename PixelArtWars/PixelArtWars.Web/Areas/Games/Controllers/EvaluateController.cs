@@ -44,7 +44,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             if (game.Players.Any(p => p.UserId == currentUserId))
             {
-                this.TempData["error"] = "You are not allowed to evaluate a game in which you are a participant!";
+                this.TempData[WebConstants.TempDataErrorMessageKey] = "You are not allowed to evaluate a game in which you are a participant!";
                 return this.RedirectToAction("Index");
             }
 

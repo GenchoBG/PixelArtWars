@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-8">
         <form method="post" action="/games/home/create" class="form-horizontal">
-            <div class="text-danger">@this.TempData["error"]</div>
+            <div class="text-danger">@this.TempData[WebConstants.TempDataErrorMessageKey]</div>
 
             <div class="row">
                 <div class="col-md-4">

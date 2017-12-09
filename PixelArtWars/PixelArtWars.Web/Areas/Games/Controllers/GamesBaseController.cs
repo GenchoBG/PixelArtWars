@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PixelArtWars.Web.Areas.Games.Controllers
 {
-    [Area("Games")]
+    [Area(WebConstants.GameArea)]
     [Authorize]
     public class GamesBaseController : Controller
     {

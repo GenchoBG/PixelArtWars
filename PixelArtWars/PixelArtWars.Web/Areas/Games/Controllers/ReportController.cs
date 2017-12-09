@@ -22,7 +22,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             this.reportService.CreateReport(gameId, currentUserId);
 
-            this.TempData["reported"] = "Game has been reported!";
+            this.TempData[WebConstants.TempDataSuccessMessageKey] = "Game has been reported!";
 
             return this.RedirectToAction("Index", "Evaluate", new { id = gameId });
         }

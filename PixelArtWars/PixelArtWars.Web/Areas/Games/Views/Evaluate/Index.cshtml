@@ -2,13 +2,13 @@
     
 <h1>Evaluate games</h1>    
 
-@if (TempData.ContainsKey("reported"))
+@if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
 {
-    <p class="text-danger">@TempData["reported"]</p>
+    <p class="text-danger">@TempData[WebConstants.TempDataSuccessMessageKey]</p>
 }
-@if (TempData.ContainsKey("error"))
+@if (TempData.ContainsKey(WebConstants.TempDataErrorMessageKey))
 {
-  <h2 class="text-danger">@TempData["error"]</h2>
+  <h2 class="text-danger">@TempData[WebConstants.TempDataErrorMessageKey]</h2>
 }
 
 @if (!Model.Any())

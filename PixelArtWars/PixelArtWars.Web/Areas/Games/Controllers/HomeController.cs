@@ -40,7 +40,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                this.TempData["Error"] = string.Join(Environment.NewLine, this.ModelState.Values);
+                this.TempData[WebConstants.TempDataErrorMessageKey] = string.Join(Environment.NewLine, this.ModelState.Values);
                 return this.RedirectToAction("Index");
             }
 

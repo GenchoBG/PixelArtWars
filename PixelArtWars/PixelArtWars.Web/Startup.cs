@@ -10,6 +10,7 @@ using PixelArtWars.Data;
 using PixelArtWars.Data.Models;
 using PixelArtWars.Services;
 using PixelArtWars.Services.Interfaces;
+using PixelArtWars.Web.Infrastructure.Extensions;
 
 namespace PixelArtWars.Web
 {
@@ -69,6 +70,8 @@ namespace PixelArtWars.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseDatabaseMigration();
 
             app.UseMvc(routes =>
             {

@@ -1,4 +1,6 @@
-﻿namespace PixelArtWars.Data.Models
+﻿using System;
+
+namespace PixelArtWars.Data.Models
 {
     public class Report
     {
@@ -11,5 +13,7 @@
         public string ReporterId { get; set; }
 
         public User Reporter { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }
