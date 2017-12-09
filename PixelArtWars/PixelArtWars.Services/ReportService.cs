@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PixelArtWars.Data;
 using PixelArtWars.Data.Models;
 using PixelArtWars.Data.Models.Enums;
@@ -36,5 +38,16 @@ namespace PixelArtWars.Services
 
             this.db.SaveChanges();
         }
+
+        public IQueryable<Report> All() => this.db.Reports;
+
+        public Report Get(int id)
+            => this.db
+                .Reports
+                .Include(r => r.Game)
+                .ThenInclude(r => r.Players)
+                .ThenInclude(gu => gu.User)
+                .Include(r => r.Reporter)
+                .FirstOrDefault(r => r.Id == id);
     }
 }

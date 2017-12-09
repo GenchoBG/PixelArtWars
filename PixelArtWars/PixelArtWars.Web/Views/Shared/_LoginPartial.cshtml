@@ -18,7 +18,19 @@
                     <li><a href="/games/evaluate">Evaluate</a></li>
                     <li><a asp-area="Games" asp-controller="Home" asp-action="Leaderboards">Leaderboards</a></li>
                 </ul>
-            </li>
+            </li> 
+            @if (User.IsInRole(WebConstants.AdministratorRole))
+            {
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Admin
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a asp-area="Admin" asp-controller="Report" asp-action="All">View Reports</a></li>
+                    </ul>
+                </li> 
+            }
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
             </li>

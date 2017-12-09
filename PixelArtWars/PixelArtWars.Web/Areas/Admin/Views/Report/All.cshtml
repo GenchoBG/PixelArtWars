@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ReportListViewModel>
+
+<h1>Reports - page @ViewData["page"]</h1>
+
+@{
+    var page = int.Parse(ViewData["page"].ToString());
+}
+
+<ul class="list-group">
+    @foreach (var report in Model)
+    {
+        <li class="list-group-item">
+            GameId: @report.GameId. Reported on @report.Date.ToShortDateString()
+            <a href="/admin/report/details?id=@report.Id">Details</a>
+        </li>
+    }
+</ul>
+
+@if (page > 1)
+{
+    <a href="/admin/reports/all?page=@(page-1)" class="btn btn-primary">Previous Page</a>
+}
+<a href="/admin/reports/all?page=@(page+1)" class="btn btn-primary">Next Page</a>

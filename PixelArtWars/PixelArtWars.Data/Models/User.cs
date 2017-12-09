@@ -4,9 +4,10 @@ using PixelArtWars.Data.Models.Relations;
 
 namespace PixelArtWars.Data.Models
 {
-    // Add profile data for application users by adding properties to the User class
     public class User : IdentityUser
     {
+        public bool IsBanned { get; set; }
+
         public int TotalScore { get; set; } = 0;
 
         public ICollection<GameUser> Games { get; set; } = new List<GameUser>();

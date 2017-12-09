@@ -71,7 +71,7 @@ namespace PixelArtWars.Web
 
             app.UseAuthentication();
 
-            app.UseDatabaseMigration();
+            //app.UseDatabaseMigration();
 
             app.UseMvc(routes =>
             {

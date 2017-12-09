@@ -1,0 +1,22 @@
+﻿@model ReportDetailsViewModel
+
+<h1>Report</h1>
+
+
+<div class="row">
+    @foreach (var userDrawing in Model.Drawings)
+    {
+        <div class="col-md-4" style="background-color: gray; border: 2px solid black; border-radius: 10%;">
+            <img style="width: 80%" src="@userDrawing.ImageUrl" alt="Image" />
+            @if (userDrawing.IsBanned)
+            {
+                <div class="btn btn-danger" disabled>Banned</div>
+            }
+            else
+            {
+                <a href="/admin/users/ban?userId=@userDrawing.UserId" class="btn btn-success">Ban User</a>
+            }
+        </div>
+    }
+    <a href="/admin/report/close?id=@Model.Id">Close report</a>
+</div>
