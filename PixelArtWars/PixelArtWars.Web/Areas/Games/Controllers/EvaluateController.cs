@@ -52,5 +52,20 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             return this.View(model);
         }
+
+        public IActionResult Choose(string userId, int gameId)
+        {
+            var currentUserId = this.userManager.GetUserId(this.User);
+
+            if (this.gameService.GetGameUser(currentUserId, gameId) != null)
+            {
+                this.TempData[WebConstants.TempDataErrorMessageKey] = "You are not allowed to evaluate a game in which you are a participant!";
+                return this.RedirectToAction("Index");
+            }
+
+            this.gameService.SelectWinner(userId, gameId);
+
+            return this.RedirectToAction("Index");
+        }
     }
 }

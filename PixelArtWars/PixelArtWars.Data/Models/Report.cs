@@ -1,4 +1,5 @@
 ﻿using System;
+using PixelArtWars.Data.Models.Enums;
 
 namespace PixelArtWars.Data.Models
 {
@@ -15,5 +16,7 @@ namespace PixelArtWars.Data.Models
         public User Reporter { get; set; }
 
         public DateTime Date { get; set; }
+
+        public ReportStatus Status { get; set; }
     }
 }

@@ -44,6 +44,7 @@ namespace PixelArtWars.Web
             services.AddTransient<IGameService, GameService>();
             services.AddTransient<IDrawingService, DrawingService>();
             services.AddTransient<IReportService, ReportService>();
+            services.AddTransient<IBanService, BanService>();
 
             services.AddAutoMapper();
 

@@ -30,7 +30,8 @@ namespace PixelArtWars.Services
             var report = new Report()
             {
                 GameId = gameId,
-                Date = DateTime.UtcNow
+                Date = DateTime.UtcNow,
+                ReporterId = reporterId
             };
             game.Status = GameStauts.Reported;
 
@@ -49,5 +50,15 @@ namespace PixelArtWars.Services
                 .ThenInclude(gu => gu.User)
                 .Include(r => r.Reporter)
                 .FirstOrDefault(r => r.Id == id);
+
+        public void Close(int id)
+        {
+            var report = this.Get(id);
+
+            report.Status = ReportStatus.Closed;
+            report.Game.Status = GameStauts.Finished;
+
+            this.db.SaveChanges();
+        }
     }
 }

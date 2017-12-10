@@ -11,7 +11,7 @@ namespace PixelArtWars.Web.Areas.Admin.Models.ReportViewModels
     {
         public int Id { get; set; }
 
-        public User Reporter { get; set; }
+        public string ReporterId { get; set; }
 
         public IEnumerable<DrawingInReportViewModel> Drawings { get; set; }
 

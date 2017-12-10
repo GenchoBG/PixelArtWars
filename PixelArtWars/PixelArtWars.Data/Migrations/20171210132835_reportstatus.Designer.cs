@@ -12,9 +12,10 @@ using System;
 namespace PixelArtWars.Data.Migrations
 {
     [DbContext(typeof(PixelArtWarsDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171210132835_reportstatus")]
+    partial class reportstatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,8 +224,6 @@ namespace PixelArtWars.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
-
-                    b.Property<int>("TotalKarma");
 
                     b.Property<int>("TotalScore");
 

@@ -2,6 +2,7 @@
 
 <h1>Report</h1>
 
+<a href="/admin/report/close?reportId=@Model.Id" class="btn btn-success">Close report</a>
 
 <div class="row">
     @foreach (var userDrawing in Model.Drawings)
@@ -14,9 +15,9 @@
             }
             else
             {
-                <a href="/admin/users/ban?userId=@userDrawing.UserId" class="btn btn-success">Ban User</a>
+                <a href="/admin/ban/banfromreport?banId=@userDrawing.UserId&reporterId=@Model.ReporterId&reportId=@Model.Id" class="btn btn-danger">Ban User</a>
+                <a href="/admin/report/chooseandclose?reportId=@Model.Id&userId=@userDrawing.UserId" class="btn btn-warning">Choose Winner & close report</a>
             }
         </div>
     }
-    <a href="/admin/report/close?id=@Model.Id">Close report</a>
 </div>

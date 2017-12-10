@@ -8,7 +8,9 @@ namespace PixelArtWars.Data.Models
     {
         public bool IsBanned { get; set; }
 
-        public int TotalScore { get; set; } = 0;
+        public int TotalScore { get; set; }
+
+        public int TotalKarma { get; set; }
 
         public ICollection<GameUser> Games { get; set; } = new List<GameUser>();
     }

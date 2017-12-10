@@ -61,6 +61,14 @@ namespace PixelArtWars.Web.Controllers
                 var result = await this.signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = await this.userManager.FindByNameAsync(model.UserName);
+                    if (user.IsBanned)
+                    {
+                        await this.signInManager.SignOutAsync();
+                        this.ViewData[WebConstants.TempDataErrorMessageKey] = "User account is banned.";
+                        return this.View(model);
+                    }
+
                     this.logger.LogInformation("User logged in.");
                     return this.RedirectToLocal(returnUrl);
                 }
