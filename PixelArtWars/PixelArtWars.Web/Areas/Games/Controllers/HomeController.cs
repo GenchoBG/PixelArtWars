@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using AutoMapper.QueryableExtensions;
+﻿using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PixelArtWars.Data.Models;
@@ -8,6 +6,8 @@ using PixelArtWars.Data.Models.Enums;
 using PixelArtWars.Services.Interfaces;
 using PixelArtWars.Web.Areas.Games.Models.GameViewModels;
 using PixelArtWars.Web.Areas.Games.Models.ParticipantViewModels;
+using System;
+using System.Linq;
 
 namespace PixelArtWars.Web.Areas.Games.Controllers
 {

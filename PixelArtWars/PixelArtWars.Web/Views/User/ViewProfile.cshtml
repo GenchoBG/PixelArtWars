@@ -1,0 +1,8 @@
+﻿@model UserProfilePageViewModel
+
+<h1>@Model.UserName</h1>
+@if (Model.IsBanned)
+{
+    <h2 class="text-danger">Banned</h2>
+}
+<p>Total score - >@Model.TotalScore</p>

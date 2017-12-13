@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using PixelArtWars.Data.Models.Relations;
+using System.Collections.Generic;
 
 namespace PixelArtWars.Data.Models
 {

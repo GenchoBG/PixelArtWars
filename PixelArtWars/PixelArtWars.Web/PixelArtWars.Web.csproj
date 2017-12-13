@@ -28,6 +28,7 @@
     <Folder Include="Areas\Games\Views\Home\" />
     <Folder Include="Areas\Games\Views\Evaluate\" />
     <Folder Include="Areas\Games\Views\Play\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
 
 </Project>

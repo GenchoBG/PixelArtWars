@@ -6,7 +6,7 @@
 @foreach (var participant in @Model.Participants)
 {
     <div style="margin: 20px">
-        @participant.UserName 
+        <a href="/user/viewprofile/@participant.Id">@participant.UserName </a>
         @if (participant.HasDrawn)
         {
             <span class="glyphicon glyphicon-ok"></span>
