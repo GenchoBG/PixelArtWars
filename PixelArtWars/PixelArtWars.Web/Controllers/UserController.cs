@@ -1,10 +1,13 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PixelArtWars.Data.Models;
 using PixelArtWars.Web.Models.UserViewModels;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace PixelArtWars.Web.Controllers
 {
@@ -34,6 +37,22 @@ namespace PixelArtWars.Web.Controllers
             return this.View(model);
         }
 
-        public IActionResult MyProfile() => this.RedirectToAction("ViewProfile", new { id = this.userManager.GetUserId(this.User) });
+        public IActionResult MyProfile()
+            => this.RedirectToAction("ViewProfile", new { id = this.userManager.GetUserId(this.User) });
+
+        public IActionResult MyDrawings()
+        {
+            var user = this.userManager
+                .Users
+                .Include(u => u.Games)
+                .ThenInclude(ug => ug.Game)
+                .FirstOrDefault(u => u.UserName == this.User.Identity.Name);
+
+            var model = user.Games
+                .Select(gu => this.mapper.Map<UserDrawingViewModel>(gu))
+                .ToList();
+
+            return this.View(model);
+        }
     }
 }

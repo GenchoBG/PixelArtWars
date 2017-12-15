@@ -1,4 +1,7 @@
-﻿namespace PixelArtWars.Services.Interfaces
+﻿using System.Collections.Generic;
+using PixelArtWars.Data.Models.Relations;
+
+namespace PixelArtWars.Services.Interfaces
 {
     public interface IDrawingService
     {

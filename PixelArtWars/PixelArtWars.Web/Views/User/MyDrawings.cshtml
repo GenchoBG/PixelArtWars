@@ -1,0 +1,6 @@
+﻿@model IEnumerable<UserDrawingViewModel>
+
+    @foreach (var drawing in Model)
+{
+        <div>@drawing.Theme <img src="@drawing.ImageUrl" alt="" /></div>
+}
