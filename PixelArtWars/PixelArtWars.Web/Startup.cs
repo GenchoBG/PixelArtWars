@@ -10,7 +10,6 @@ using PixelArtWars.Data;
 using PixelArtWars.Data.Models;
 using PixelArtWars.Services;
 using PixelArtWars.Services.Interfaces;
-using PixelArtWars.Web.Infrastructure.Extensions;
 
 namespace PixelArtWars.Web
 {
@@ -45,6 +44,7 @@ namespace PixelArtWars.Web
             services.AddTransient<IDrawingService, DrawingService>();
             services.AddTransient<IReportService, ReportService>();
             services.AddTransient<IBanService, BanService>();
+            services.AddTransient<IImageService, ImageService>();
 
             services.AddAutoMapper();
 

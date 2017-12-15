@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace PixelArtWars.Web.Areas.Admin.Views.Report
+namespace PixelArtWars.Web.Views.Manage
 {
-    public class DetailsModel : PageModel
+    public class UpdateProfilePictureModel : PageModel
     {
         public void OnGet()
         {

@@ -5,6 +5,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,6 +22,7 @@ namespace PixelArtWars.Web.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly IImageService imageService;
         private readonly IEmailSender emailSender;
         private readonly ILogger logger;
         private readonly UrlEncoder urlEncoder;
@@ -32,13 +34,14 @@ namespace PixelArtWars.Web.Controllers
           SignInManager<User> signInManager,
           IEmailSender emailSender,
           ILogger<ManageController> logger,
-          UrlEncoder urlEncoder)
+          UrlEncoder urlEncoder, IImageService imageService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.emailSender = emailSender;
             this.logger = logger;
             this.urlEncoder = urlEncoder;
+            this.imageService = imageService;
         }
 
         [TempData]
@@ -63,6 +66,29 @@ namespace PixelArtWars.Web.Controllers
             };
 
             return this.View(model);
+        }
+
+        public async Task<IActionResult> UpdateProfilePicture()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var model = new UpdateProfilePictureViewModel() { ProfilePicture = user.ProfilePicture };
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfilePicture(IFormFile file)
+        {
+            var image = await this.imageService.SaveProfilePictureAsync(file, this.User.Identity.Name);
+
+            var user = await this.userManager.FindByNameAsync(this.User.Identity.Name);
+
+            user.ProfilePicture = image;
+
+            await this.userManager.UpdateAsync(user);
+
+            return this.RedirectToAction("MyProfile", "User");
         }
 
         [HttpPost]

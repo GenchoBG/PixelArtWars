@@ -3,9 +3,9 @@ using PixelArtWars.Services.Interfaces;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using PixelArtWars.Data.Models.Enums;
 
 namespace PixelArtWars.Services
@@ -14,11 +14,13 @@ namespace PixelArtWars.Services
     {
         private readonly PixelArtWarsDbContext db;
         private readonly IHostingEnvironment host;
+        private readonly IImageService imageService;
 
-        public DrawingService(PixelArtWarsDbContext db, IHostingEnvironment host)
+        public DrawingService(PixelArtWarsDbContext db, IHostingEnvironment host, IImageService imageService)
         {
             this.db = db;
             this.host = host;
+            this.imageService = imageService;
         }
 
         public void Save(string userId, int gameId, string imageData)
@@ -35,15 +37,7 @@ namespace PixelArtWars.Services
                 var imagePath = $@"\images\drawings\{userId}_{gameId}.jpeg";
                 var fileNameWithPath = this.host.WebRootPath + imagePath;
 
-                using (var fs = new FileStream(fileNameWithPath, FileMode.Create))
-                {
-                    using (var bw = new BinaryWriter(fs))
-                    {
-                        var data = Convert.FromBase64String(imageData);
-                        bw.Write(data);
-                        bw.Close();
-                    }
-                }
+                this.imageService.SaveDrawing(imageData, fileNameWithPath);
 
                 playerGame.HasDrawn = true;
                 playerGame.ImageUrl = imagePath;

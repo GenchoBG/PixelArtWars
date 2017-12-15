@@ -2,21 +2,20 @@
 
 namespace PixelArtWars.Data.Migrations
 {
-    public partial class userscore : Migration
+    public partial class userprofilepicture : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "TotalScore",
+            migrationBuilder.AddColumn<string>(
+                name: "ProfilePicture",
                 table: "AspNetUsers",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "TotalScore",
+                name: "ProfilePicture",
                 table: "AspNetUsers");
         }
     }

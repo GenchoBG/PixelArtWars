@@ -1,0 +1,12 @@
+﻿@model UpdateProfilePictureViewModel
+@{
+    ViewData["Title"] = "Update Profile Picture";
+    ViewData.AddActivePage(ManageNavPages.UpdateProfilePicture);
+}
+
+<h4>@ViewData["Title"]</h4>
+<img src="@Model.ProfilePicture"/>
+<form method="post" enctype="multipart/form-data">
+    <input type="file" name="file"/>
+    <input type="submit" class="btn btn-primary" value="Update"/>
+</form>

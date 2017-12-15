@@ -10,5 +10,7 @@ namespace PixelArtWars.Web.Models.UserViewModels
         public bool IsBanned { get; set; }
 
         public int TotalScore { get; set; }
+
+        public string ProfilePicture { get; set; }
     }
 }

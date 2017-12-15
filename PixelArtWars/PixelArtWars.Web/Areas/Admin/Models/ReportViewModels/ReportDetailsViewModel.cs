@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using PixelArtWars.Data.Models;
 using PixelArtWars.Web.Areas.Admin.Models.DrawingViewModels;

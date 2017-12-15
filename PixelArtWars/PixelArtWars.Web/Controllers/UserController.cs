@@ -33,5 +33,7 @@ namespace PixelArtWars.Web.Controllers
 
             return this.View(model);
         }
+
+        public IActionResult MyProfile() => this.RedirectToAction("ViewProfile", new { id = this.userManager.GetUserId(this.User) });
     }
 }

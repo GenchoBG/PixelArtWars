@@ -6,6 +6,8 @@ namespace PixelArtWars.Data.Models
 {
     public class User : IdentityUser
     {
+        public string ProfilePicture { get; set; }
+
         public bool IsBanned { get; set; }
 
         public int TotalScore { get; set; }

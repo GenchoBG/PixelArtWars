@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace PixelArtWars.Services.Interfaces
+﻿namespace PixelArtWars.Services.Interfaces
 {
     public interface IDrawingService
     {
