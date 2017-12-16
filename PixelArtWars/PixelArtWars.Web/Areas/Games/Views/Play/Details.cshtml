@@ -3,16 +3,20 @@
 <h1>Game with id @Model.Id and theme @Model.Theme</h1>
 
 <h3>Participants: </h3>
-@foreach (var participant in @Model.Participants)
-{
-    <div style="margin: 20px">
-        <a href="/user/viewprofile/@participant.Id">@participant.UserName </a>
-        @if (participant.HasDrawn)
-        {
-            <span class="glyphicon glyphicon-ok"></span>
-        }
-    </div>
-}
+<ul class="list-group has-success">
+    @foreach (var participant in @Model.Participants)
+    {
+        <li style="width: 20%" class="list-group-item">
+            <a href="/user/viewprofile/@participant.Id">@participant.UserName </a>
+            @if (participant.HasDrawn)
+                {
+                <span class="glyphicon glyphicon-ok form-control-feedback"  aria-hidden="true"></span>
+            }
+
+        </li>
+
+    }
+</ul>
 
 @if (Model.Participants.Any(p => p.UserName == User.Identity.Name))
 {

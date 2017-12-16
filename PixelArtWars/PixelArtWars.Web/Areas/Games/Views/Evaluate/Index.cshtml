@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<GameListViewModel>
-    
-<h1>Evaluate games</h1>    
+
+<h1>Evaluate games</h1>
 
 @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
 {
@@ -8,7 +8,7 @@
 }
 @if (TempData.ContainsKey(WebConstants.TempDataErrorMessageKey))
 {
-  <h2 class="text-danger">@TempData[WebConstants.TempDataErrorMessageKey]</h2>
+    @Html.Partial("_ValidationError", @TempData[WebConstants.TempDataErrorMessageKey]);
 }
 
 @if (!Model.Any())

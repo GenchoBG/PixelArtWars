@@ -3,8 +3,11 @@
 <h1>Leaderboards</h1>
 
 <ul class="list-group">
+    @{
+        var counter = 1;
+    }
     @foreach (var participant in Model)
     {
-        <li class="list-group-item">@participant.UserName (@participant.Id) - @participant.TotalScore</li>
+        <li class="list-group-item">@(counter++). <a href="/user/viewprofile/@participant.Id">@participant.UserName</a> <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span> @participant.TotalScore</li>
     }
 </ul>

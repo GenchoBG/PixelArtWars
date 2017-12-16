@@ -80,6 +80,11 @@ namespace PixelArtWars.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateProfilePicture(IFormFile file)
         {
+            if (!file.ContentType.Contains("image"))
+            {
+                return this.RedirectToAction("UpdateProfilePicture");
+            }
+
             var image = await this.imageService.SaveProfilePictureAsync(file, this.User.Identity.Name);
 
             var user = await this.userManager.FindByNameAsync(this.User.Identity.Name);
