@@ -298,7 +298,8 @@ namespace PixelArtWars.Web.Controllers
                 this.ViewData["ReturnUrl"] = returnUrl;
                 this.ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return this.View("ExternalLogin", new ExternalLoginViewModel { Email = email });
+                var username = info.Principal.FindFirstValue(ClaimTypes.Name);
+                return this.View("ExternalLogin", new ExternalLoginViewModel { Email = email, UserName = username });
             }
         }
 
@@ -315,7 +316,7 @@ namespace PixelArtWars.Web.Controllers
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.UserName, Email = model.Email };
                 var result = await this.userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -328,6 +329,7 @@ namespace PixelArtWars.Web.Controllers
                     }
                 }
                 this.AddErrors(result);
+                this.ViewData["LoginProvider"] = info.LoginProvider;
             }
 
             this.ViewData["ReturnUrl"] = returnUrl;

@@ -38,6 +38,12 @@ namespace PixelArtWars.Web
                 .AddEntityFrameworkStores<PixelArtWarsDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = this.Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = this.Configuration["Authentication:Facebook:AppSecret"];
+            });
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IGameService, GameService>();
