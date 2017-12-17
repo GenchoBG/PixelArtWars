@@ -1,6 +1,23 @@
 ﻿@model IEnumerable<UserDrawingViewModel>
 
-@foreach (var drawing in Model)
-{
-    <div>@drawing.Theme <img src="@drawing.ImageUrl" alt="" /></div>
+<div class="row">
+    @{
+        var counter = 0;
+    }
+    @foreach (var drawing in Model)
+    {
+        <div class="col-md-3" style="margin: 5px; border: 2px solid black; border-radius: 5%">
+            <h4 style="">
+                @drawing.Theme
+            </h4>
+            <button class="btn btn-primary" onclick="fbs_click(@counter)">
+                Share on facebook
+            </button>
+            <img id="@(counter++)" src="@drawing.ImageUrl" style="height: 200px" alt=""  />
+        </div>
+    }
+</div>
+
+@section Scripts{ 
+    <script src="~/js/site.js"></script>
 }

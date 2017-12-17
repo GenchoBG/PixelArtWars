@@ -12,6 +12,10 @@
     <None Remove="wwwroot\images\NewFolder\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\PixelArtWarsWeb - Web Deploy.pubxml" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
@@ -35,6 +39,7 @@
     <Folder Include="Areas\Games\Views\Home\" />
     <Folder Include="Areas\Games\Views\Evaluate\" />
     <Folder Include="Areas\Games\Views\Play\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
 
