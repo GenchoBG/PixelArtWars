@@ -8,6 +8,7 @@ using PixelArtWars.Web.Areas.Games.Models.GameViewModels;
 using PixelArtWars.Web.Areas.Games.Models.ParticipantViewModels;
 using System;
 using System.Linq;
+using PixelArtWars.Web.Areas.Games.Models;
 
 namespace PixelArtWars.Web.Areas.Games.Controllers
 {
@@ -16,23 +17,47 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
         private readonly IGameService gameService;
         private readonly UserManager<User> userManager;
 
+        private const int GamesPerPage = 5;
+
         public HomeController(IGameService gameService, UserManager<User> userManager)
         {
             this.gameService = gameService;
             this.userManager = userManager;
         }
 
-        public IActionResult Index(string search = "")
+        public IActionResult Index(string search = "", int page = 0)
         {
-            this.ViewData["userId"] = this.userManager.GetUserId(this.User);
+            if (page < 0)
+            {
+                page = 0;
+            }
+
+            var pagesCount =
+                this.gameService.GetAll().Count(g => g.Status == GameStauts.Active) / GamesPerPage;
+
+            if (page > pagesCount)
+            {
+                page = pagesCount;
+            }
 
             var games = this.gameService
                 .GetAll(search)
                 .Where(g => g.Status == GameStauts.Active)
+                .Skip(GamesPerPage * page)
+                .Take(GamesPerPage)
                 .ProjectTo<GameListViewModel>()
                 .ToList();
+           
+            var model = new GamesHomepageViewModel()
+            {
+                Games = games,
+                Page = page,
+                TotalPages = pagesCount,
+                Search = search,
+                CurrentUserId = this.userManager.GetUserId(this.User)
+        };
 
-            return this.View(games);
+            return this.View(model);
         }
 
         [HttpPost]
@@ -62,3 +87,4 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
         }
     }
 }
+
