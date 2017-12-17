@@ -2,7 +2,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using PixelArtWars.Services.Interfaces;
 
-namespace PixelArtWars.Web.Extensions
+namespace PixelArtWars.Web.Infrastructure.Extensions
 {
     public static class EmailSenderExtensions
     {

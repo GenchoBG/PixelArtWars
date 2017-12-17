@@ -1,5 +1,5 @@
 ﻿using PixelArtWars.Data.Models.Relations;
-using PixelArtWars.Web.Infrastrucuture.Mapping;
+using PixelArtWars.Web.Infrastructure.Mapping;
 
 namespace PixelArtWars.Web.Areas.Games.Models.EvaluateViewModels
 {

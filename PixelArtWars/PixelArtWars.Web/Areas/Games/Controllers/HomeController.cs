@@ -9,6 +9,7 @@ using PixelArtWars.Web.Areas.Games.Models.ParticipantViewModels;
 using System;
 using System.Linq;
 using PixelArtWars.Web.Areas.Games.Models;
+using PixelArtWars.Web.Infrastructure.Extensions;
 
 namespace PixelArtWars.Web.Areas.Games.Controllers
 {
@@ -32,22 +33,25 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
                 page = 0;
             }
 
+            var gamesQuery = this.gameService
+                .GetAll(search)
+                .Where(g => g.Status == GameStauts.Active);
+
+
             var pagesCount =
-                this.gameService.GetAll().Count(g => g.Status == GameStauts.Active) / GamesPerPage;
+                gamesQuery.Count(g => g.Status == GameStauts.Active) / GamesPerPage;
 
             if (page > pagesCount)
             {
                 page = pagesCount;
             }
 
-            var games = this.gameService
-                .GetAll(search)
-                .Where(g => g.Status == GameStauts.Active)
+            var games = gamesQuery
                 .Skip(GamesPerPage * page)
                 .Take(GamesPerPage)
                 .ProjectTo<GameListViewModel>()
                 .ToList();
-           
+
             var model = new GamesHomepageViewModel()
             {
                 Games = games,
@@ -55,7 +59,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
                 TotalPages = pagesCount,
                 Search = search,
                 CurrentUserId = this.userManager.GetUserId(this.User)
-        };
+            };
 
             return this.View(model);
         }
@@ -65,7 +69,8 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                this.TempData[WebConstants.TempDataErrorMessageKey] = string.Join(Environment.NewLine, this.ModelState.Values);
+                var errors = this.ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                this.TempData.AddErrorMessage(string.Join(Environment.NewLine, errors));
                 return this.RedirectToAction("Index");
             }
 

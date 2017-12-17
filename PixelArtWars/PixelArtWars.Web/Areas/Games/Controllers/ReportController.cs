@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PixelArtWars.Data.Models;
 using PixelArtWars.Services.Interfaces;
+using PixelArtWars.Web.Infrastructure.Extensions;
 
 namespace PixelArtWars.Web.Areas.Games.Controllers
 {
@@ -22,7 +23,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             this.reportService.CreateReport(gameId, currentUserId);
 
-            this.TempData[WebConstants.TempDataSuccessMessageKey] = "Game has been reported!";
+            this.TempData.AddSuccessMessage("Game has been reported!");
 
             return this.RedirectToAction("Index", "Evaluate", new { id = gameId });
         }

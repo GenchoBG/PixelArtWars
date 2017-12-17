@@ -2,15 +2,6 @@
 
 <h1>Evaluate games</h1>
 
-@if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
-{
-    <p class="text-danger">@TempData[WebConstants.TempDataSuccessMessageKey]</p>
-}
-@if (TempData.ContainsKey(WebConstants.TempDataErrorMessageKey))
-{
-    @Html.Partial("_ValidationError", @TempData[WebConstants.TempDataErrorMessageKey]);
-}
-
 @if (!Model.Any())
 {
     <h3>No games to evaluate :/</h3>

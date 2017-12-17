@@ -8,6 +8,7 @@ using PixelArtWars.Data.Models.Enums;
 using PixelArtWars.Services.Interfaces;
 using PixelArtWars.Web.Areas.Games.Models.EvaluateViewModels;
 using PixelArtWars.Web.Areas.Games.Models.GameViewModels;
+using PixelArtWars.Web.Infrastructure.Extensions;
 
 namespace PixelArtWars.Web.Areas.Games.Controllers
 {
@@ -43,7 +44,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             if (game.Players.Any(p => p.UserId == currentUserId))
             {
-                this.TempData[WebConstants.TempDataErrorMessageKey] = "You are not allowed to evaluate a game in which you are a participant!";
+                this.TempData.AddErrorMessage("You are not allowed to evaluate a game in which you are a participant!");
                 return this.RedirectToAction("Index");
             }
 
@@ -58,7 +59,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             if (this.gameService.GetGameUser(currentUserId, gameId) != null)
             {
-                this.TempData[WebConstants.TempDataErrorMessageKey] = "You are not allowed to evaluate a game in which you are a participant!";
+                this.TempData.AddErrorMessage("You are not allowed to evaluate a game in which you are a participant!");
                 return this.RedirectToAction("Index");
             }
 

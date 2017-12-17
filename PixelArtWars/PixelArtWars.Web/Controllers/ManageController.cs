@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PixelArtWars.Data.Models;
 using PixelArtWars.Services.Interfaces;
-using PixelArtWars.Web.Extensions;
+using PixelArtWars.Web.Infrastructure.Extensions;
 using PixelArtWars.Web.Models.ManageViewModels;
 
 namespace PixelArtWars.Web.Controllers

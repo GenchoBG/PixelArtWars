@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PixelArtWars.Web.Controllers;
 
-namespace PixelArtWars.Web.Extensions
+namespace PixelArtWars.Web.Infrastructure.Extensions
 {
     public static class UrlHelperExtensions
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace PixelArtWars.Web.Infrastrucuture.Mapping
+namespace PixelArtWars.Web.Infrastructure.Mapping
 {
     public interface IHaveCustomMapping
     {

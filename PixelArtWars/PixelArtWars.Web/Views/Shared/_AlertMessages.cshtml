@@ -1,0 +1,16 @@
+﻿
+@if (TempData.ContainsKey(WebConstants.TempDataErrorMessageKey))
+{
+    <h2 class="alert alert-danger">
+        <span class="glyphicon glyphicon-exclamation-sign"></span>
+        @TempData[WebConstants.TempDataErrorMessageKey]
+    </h2>
+}
+
+@if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
+{
+    <h2 class="alert alert-success">
+        <span class="glyphicon glyphicon-exclamation-sign"></span>
+        @TempData[WebConstants.TempDataSuccessMessageKey]
+    </h2>
+}

@@ -18,10 +18,10 @@
     </div>
 </div>
 <br />
+
 <div class="row">
     <div class="col-lg-6">
         <form method="post" action="/games/home/create">
-            <div class="text-danger">@this.TempData[WebConstants.TempDataErrorMessageKey]</div>
             <div class="input-group">
                 <input class="form-control" type="text" name="theme" placeholder="Game Theme" />
 
@@ -61,6 +61,12 @@
 <div class="info">Page @(Model.Page + 1) / @(Model.TotalPages + 1)</div>
 <ul class="pagination justify-content-center">
     @{
+        var searchQuery = "";
+        if (!string.IsNullOrEmpty(Model.Search))
+        {
+            searchQuery = $"&search={Model.Search}";
+        }
+
         var firstButtonDisabledClass = "";
         if (Model.Page <= 0)
         {
@@ -74,12 +80,12 @@
     }
 
     <li class="page-item  @firstButtonDisabledClass">
-        <a class="page-link" href="/games?page=@(Model.Page-1)" aria-label="Previous">
+        <a class="page-link" href="/games?page=@(Model.Page-1)@searchQuery" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
         </a>
     </li>
     <li class="page-item  @lastButtonDisabledClass">
-        <a class="page-link" href="/games?page=@(Model.Page+1)" aria-label="Next">
+        <a class="page-link" href="/games?page=@(Model.Page+1)@searchQuery" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
         </a>
     </li>
