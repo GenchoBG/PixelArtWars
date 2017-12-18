@@ -51,7 +51,7 @@ namespace PixelArtWars.Web
             services.AddTransient<IDrawingService, DrawingService>();
             services.AddTransient<IReportService, ReportService>();
             services.AddTransient<IBanService, BanService>();
-            services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IImageService, DropboxService>(provider => new DropboxService(this.Configuration["Storage:Dropbox:AccessToken"]));
 
             services.AddAutoMapper();
 
@@ -80,7 +80,7 @@ namespace PixelArtWars.Web
             app.UseAuthentication();
 
             app.UseDatabaseMigration();
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

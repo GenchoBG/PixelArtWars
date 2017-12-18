@@ -1,11 +1,12 @@
-﻿using PixelArtWars.Data;
+﻿using System;
+using PixelArtWars.Data;
 using PixelArtWars.Services.Interfaces;
-using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PixelArtWars.Data.Models;
 using PixelArtWars.Data.Models.Enums;
 
 namespace PixelArtWars.Services
@@ -13,17 +14,19 @@ namespace PixelArtWars.Services
     public class DrawingService : IDrawingService
     {
         private readonly PixelArtWarsDbContext db;
+        private readonly UserManager<User> userManager;
         private readonly IHostingEnvironment host;
         private readonly IImageService imageService;
 
-        public DrawingService(PixelArtWarsDbContext db, IHostingEnvironment host, IImageService imageService)
+        public DrawingService(PixelArtWarsDbContext db, IHostingEnvironment host, IImageService imageService, UserManager<User> userManager)
         {
             this.db = db;
             this.host = host;
             this.imageService = imageService;
+            this.userManager = userManager;
         }
 
-        public void Save(string userId, int gameId, string imageData)
+        public async Task Save(string userId, int gameId, string imageData)
         {
             var playerGame = this.db
                 .Games
@@ -34,19 +37,20 @@ namespace PixelArtWars.Services
 
             if (playerGame != null && !playerGame.HasDrawn)
             {
-                var imagePath = $@"\images\drawings\{userId}_{gameId}.jpeg";
-                var fileNameWithPath = this.host.WebRootPath + imagePath;
-
-                this.imageService.SaveDrawing(imageData, fileNameWithPath);
+                var imagePath = await this.imageService.SaveGameDrawing(userId, gameId, imageData);
 
                 playerGame.HasDrawn = true;
                 playerGame.ImageUrl = imagePath;
 
-
-                this.db.Update(playerGame);
-                this.db.SaveChanges();
-
-                this.UpdateGameStatus(gameId);
+                try
+                {
+                    this.UpdateGameStatus(gameId);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
         }
 

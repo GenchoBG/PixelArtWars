@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using PixelArtWars.Data.Models.Relations;
+﻿using System.Threading.Tasks;
 
 namespace PixelArtWars.Services.Interfaces
 {
     public interface IDrawingService
     {
-        void Save(string userId, int gameId, string imageData);
+        Task Save(string userId, int gameId, string imageData);
     }
 }

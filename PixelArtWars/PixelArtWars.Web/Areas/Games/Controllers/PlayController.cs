@@ -58,11 +58,11 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
         }
 
         [HttpPost]
-        public IActionResult SubmitDrawing(int id, string drawing)
+        public async Task<IActionResult> SubmitDrawing(int id, string drawing)
         {
             var userId = this.userManager.GetUserId(this.User);
 
-            this.drawingService.Save(userId, id, drawing);
+            await this.drawingService.Save(userId, id, drawing);
 
             return this.Json(new { result = "Redirect", url = this.Url.Action("Index", "Home", new { Area = "Games" }) });
         }
