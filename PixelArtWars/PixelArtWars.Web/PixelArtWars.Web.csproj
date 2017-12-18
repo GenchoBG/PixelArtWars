@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Ban\" />
     <Folder Include="Areas\Admin\Views\Report\" />
     <Folder Include="Areas\Games\Views\Home\" />
     <Folder Include="Areas\Games\Views\Evaluate\" />

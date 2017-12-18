@@ -65,7 +65,7 @@ namespace PixelArtWars.Web.Controllers
                     if (user.IsBanned)
                     {
                         await this.signInManager.SignOutAsync();
-                        this.ViewData[WebConstants.TempDataErrorMessageKey] = "User account is banned.";
+                        this.TempData.AddErrorMessage("User account is banned. If you feel like the ban is unjustified contact an administrator at banappeals@pixelartwars.com!");
                         return this.View(model);
                     }
 

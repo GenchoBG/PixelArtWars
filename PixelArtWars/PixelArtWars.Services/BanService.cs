@@ -1,4 +1,6 @@
-﻿using PixelArtWars.Data;
+﻿using System.Linq;
+using PixelArtWars.Data;
+using PixelArtWars.Data.Models;
 using PixelArtWars.Services.Interfaces;
 
 namespace PixelArtWars.Services
@@ -26,7 +28,14 @@ namespace PixelArtWars.Services
 
         public void Unban(string id)
         {
-            throw new System.NotImplementedException();
+            var user = this.db.Users.Find(id);
+
+            user.IsBanned = false;
+
+            this.db.SaveChanges();
         }
+
+        public IQueryable<User> GetBannedUsers()
+            => this.db.Users.Where(u => u.IsBanned);
     }
 }

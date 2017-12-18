@@ -1,0 +1,24 @@
+﻿@model IEnumerable<UserListViewModel>
+    
+    <h1>Banned Users</h1>
+<table class="table table-bordered table-responsive table-condensed table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Karma</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.UserName</td>
+                <td>@user.TotalKarma</td>
+                <td><a class="btn btn-warning" href="/admin/ban/unban/@user.Id">Unban</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
