@@ -1,16 +1,36 @@
 ﻿
 <h1>Drawing!</h1>
 
-<div>
-    <div id="buttons">
-        <button id="colorPickerButton" class="btn btn-default">Select Color</button>
-        <input type="color" id="myColor">
+<div class="row">
+    <div class="col-md-3 col-md-offset-1">
+        <div>
+            <div id="buttons">
+                <button id="colorPickerButton" class="btn btn-default">Select Color</button>
+                <input type="color" id="myColor">
+            </div>
+            <br/>
+            <button class="btn btn-default" onclick="setradius($('#radius').val())">Select Radius</button>
+            <select id="radius">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+            </select>
+            <br/>
+            <button class="btn btn-default" onclick="clearboard()">Clear Board</button>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div id="sketch-holder"></div>
     </div>
 </div>
 
-<input id="gameId" hidden value="@ViewData["id"]"/>
-<div id="sketch-holder"></div>
+
+
+
+
 <form action="/games/play/submitdrawing" method="post" id="myForm">
+    <input id="gameId" hidden value="@ViewData["id"]" />
     <input type="submit" class="btn btn-success" data-id="svn-btn" value="Save">
 </form>
 

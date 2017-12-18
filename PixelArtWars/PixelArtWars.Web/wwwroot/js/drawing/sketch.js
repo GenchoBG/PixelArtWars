@@ -2,8 +2,9 @@ var pixels = [];
 var areasize = 500;
 var squaresize = 20;
 var squarescount = areasize / squaresize;
-var currentcolor = [255, 0, 0];
+var currentcolor = [0, 0, 0];
 var backgroundcolor = [255, 255, 255];
+var radius = 1;
 
 function setup() {
 	var canvas = createCanvas(areasize, areasize);
@@ -11,20 +12,21 @@ function setup() {
 	initialisepixelsarray();
 }
 
-function initialisepixelsarray() {
-	for (var i = 0; i < squarescount; i++) {
-		pixels.push([]);
-	}
-}
-
 function draw() {
 	background(backgroundcolor);
 	drawlines();
 	drawpixels();
 	if (mouseIsPressed) {
-		fillpixel(mouseButton);
+		fillpixels(mouseButton);
 	}
 }
+
+function initialisepixelsarray() {
+    for (var i = 0; i < squarescount; i++) {
+        pixels.push([]);
+    }
+}
+
 
 function drawlines() {
 	for (var i = 0; i < squarescount; i++) {
@@ -48,16 +50,38 @@ function drawpixels() {
 	}
 }
 
-function fillpixel(mouseButton) {
-	var row = Math.floor(mouseX / squaresize);
-	var col = Math.floor(mouseY / squaresize);
+function fillpixels(mouseButton) {
+	var mouseRow = Math.floor(mouseX / squaresize);
+    var mouseCol = Math.floor(mouseY / squaresize);
 
-	if (row < squarescount && row >= 0 && col < squarescount && col >= 0) {
-		if (mouseButton == LEFT) {
-			pixels[row][col] = currentcolor;
-		}
-		else {
-			pixels[row][col] = backgroundcolor;
-		}
-	}
+	var r = radius - 1;
+
+	for (var row = mouseRow - r; row <= mouseRow + r; row++) {
+	    for (var col = mouseCol - r; col <= mouseCol + r; col++) {
+	        fillpixel(mouseButton, row, col);
+	    }
+    }
+}
+
+function fillpixel(mouseButton, row, col) {
+    if (row < squarescount && row >= 0 && col < squarescount && col >= 0) {
+        if (mouseButton == LEFT) {
+            pixels[row][col] = currentcolor;
+        }
+        else {
+            pixels[row][col] = backgroundcolor;
+        }
+    }
+}
+
+function setradius(value) {
+    radius = value;
+}
+
+function clearboard() {
+    for (var i = 0; i < squarescount; i++) {
+        for (var j = 0; j < squarescount; j++) {
+            pixels[i][j] = null;
+        }
+    }
 }
