@@ -35,15 +35,7 @@ namespace PixelArtWars.Services
                 playerGame.HasDrawn = true;
                 playerGame.ImageUrl = imagePath;
 
-                try
-                {
-                    this.UpdateGameStatus(gameId);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
+                this.UpdateGameStatus(gameId);
             }
         }
 
