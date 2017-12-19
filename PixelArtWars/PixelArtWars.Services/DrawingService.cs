@@ -3,10 +3,7 @@ using PixelArtWars.Data;
 using PixelArtWars.Services.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PixelArtWars.Data.Models;
 using PixelArtWars.Data.Models.Enums;
 
 namespace PixelArtWars.Services
@@ -14,16 +11,12 @@ namespace PixelArtWars.Services
     public class DrawingService : IDrawingService
     {
         private readonly PixelArtWarsDbContext db;
-        private readonly UserManager<User> userManager;
-        private readonly IHostingEnvironment host;
         private readonly IImageService imageService;
 
-        public DrawingService(PixelArtWarsDbContext db, IHostingEnvironment host, IImageService imageService, UserManager<User> userManager)
+        public DrawingService(PixelArtWarsDbContext db, IImageService imageService)
         {
             this.db = db;
-            this.host = host;
             this.imageService = imageService;
-            this.userManager = userManager;
         }
 
         public async Task Save(string userId, int gameId, string imageData)

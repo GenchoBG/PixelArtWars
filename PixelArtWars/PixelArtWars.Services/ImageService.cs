@@ -7,6 +7,8 @@ using PixelArtWars.Services.Interfaces;
 
 namespace PixelArtWars.Services 
 {
+    //you served me well but you were just not good enough :/
+
     //public class ImageService : IImageService
     //{
     //    private readonly IHostingEnvironment host;

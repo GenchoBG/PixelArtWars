@@ -9,22 +9,27 @@ namespace PixelArtWars.Services
 {
     public class DropboxService : IImageService
     {
-        private const string TempPath = "./temp/temp.jpeg";
+        private const string TempDirectory = "./temp/";
+        private const string TempFilePath = TempDirectory + "temp.jpeg";
 
         private readonly DropboxClient client;
 
         public DropboxService(string token)
         {
-            if (!File.Exists(TempPath))
+            if (!Directory.Exists(TempDirectory))
             {
-                File.Create(TempPath);
+                Directory.CreateDirectory(TempDirectory);
+            }
+            if (!File.Exists(TempFilePath))
+            {
+                File.Create(TempFilePath).Close();
             }
             this.client = new DropboxClient(token);
         }
 
         public async Task<string> SaveGameDrawing(string userId, int gameId, string imageData)
         {
-            var path = this.GetUserProfilePicturePath(userId);
+            var path = this.GetGameDrawingImagePath(userId, gameId);
 
             //if file exists delete it or else dropbox client throws an exception
             if (await this.CheckIfFileExists(path))
@@ -33,10 +38,10 @@ namespace PixelArtWars.Services
             }
 
             //generate a temp file from which we read the data
-            this.SaveDrawing(imageData, TempPath);
+            this.SaveDrawing(imageData, TempFilePath);
 
             //upload the file
-            await this.UploadImageAsync(path, TempPath);
+            await this.UploadImageAsync(path, TempFilePath);
 
             var link = await this.GetImageLink(path);
             return link;
@@ -53,10 +58,10 @@ namespace PixelArtWars.Services
             }
 
             //generate a temp file from which we read the data
-            await this.SaveProfilePictureAsync(file, TempPath);
+            await this.SaveProfilePictureAsync(file, TempFilePath);
 
             //upload the file
-            await this.UploadImageAsync(path, TempPath);
+            await this.UploadImageAsync(path, TempFilePath);
 
             var link = await this.GetImageLink(path);
             return link;
@@ -74,7 +79,7 @@ namespace PixelArtWars.Services
 
         private async Task<string> GetImageLink(string path)
         {
-            var result = this.client.Sharing.CreateSharedLinkWithSettingsAsync(path).GetAwaiter().GetResult();
+            var result = await this.client.Sharing.CreateSharedLinkWithSettingsAsync(path);
 
             //the url that the api spits out has a query &dl=0 at the end.
             //i replace the 0 with a 1 so that it works as a download link
@@ -86,9 +91,9 @@ namespace PixelArtWars.Services
 
         private async Task UploadImageAsync(string path, string localPath)
         {
-            using (var fileStream = File.Open(TempPath, FileMode.Open))
+            using (var fileStream = File.Open(TempFilePath, FileMode.Open))
             {
-                this.client.Files.UploadAsync(path, body: fileStream).GetAwaiter().GetResult();
+                await this.client.Files.UploadAsync(path, body: fileStream);
             }
         }
 

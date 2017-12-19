@@ -16,9 +16,19 @@ function draw() {
 	background(backgroundcolor);
 	drawlines();
 	drawpixels();
+	getcolor();
+    getradius();
 	if (mouseIsPressed) {
 		fillpixels(mouseButton);
 	}
+}
+
+function getcolor() {
+    currentcolor = $("#myColor").val();
+}
+
+function getradius() {
+    radius = $("#radius").val();
 }
 
 function initialisepixelsarray() {
@@ -72,10 +82,6 @@ function fillpixel(mouseButton, row, col) {
             pixels[row][col] = backgroundcolor;
         }
     }
-}
-
-function setradius(value) {
-    radius = value;
 }
 
 function clearboard() {
