@@ -1,5 +1,6 @@
 ﻿// Write your JavaScript code.
 
+//facebook share script
 function fbs_click(id) {
 	var theImg = document.getElementById(id);
 	var u = theImg.src;
