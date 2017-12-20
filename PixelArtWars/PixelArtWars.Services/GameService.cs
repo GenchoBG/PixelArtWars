@@ -80,12 +80,7 @@ namespace PixelArtWars.Services
         {
             var game = this.Get(gameId);
 
-            if (game == null)
-            {
-                return;
-            }
-
-            var playerGame = game.Players.FirstOrDefault(g => g.UserId == userId);
+            var playerGame = game?.Players.FirstOrDefault(g => g.UserId == userId);
             if (playerGame == null)
             {
                 return;

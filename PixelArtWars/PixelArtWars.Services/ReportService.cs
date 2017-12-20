@@ -27,6 +27,11 @@ namespace PixelArtWars.Services
                 return;
             }
 
+            if (!this.db.Users.Any(u => u.Id == reporterId))
+            {
+                return;
+            }
+
             var report = new Report()
             {
                 GameId = gameId,
@@ -55,8 +60,11 @@ namespace PixelArtWars.Services
         {
             var report = this.Get(id);
 
-            report.Status = ReportStatus.Closed;
-            report.Game.Status = GameStauts.Finished;
+            if (report != null)
+            {
+                report.Status = ReportStatus.Closed;
+                report.Game.Status = GameStauts.Finished;
+            }
 
             this.db.SaveChanges();
         }

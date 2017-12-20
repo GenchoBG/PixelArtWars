@@ -107,5 +107,84 @@ namespace PixelArtWars.Tests.Services
             // arrange
             Assert.Equal(1, game.Players.Count);
         }
+
+        [Fact]
+        public async Task TestLeaveGameWithValidDataLeavesGame()
+        {
+            // arrange
+            DbSeeder.SeedGames(this.db);
+            var game = await this.db.Games.FirstOrDefaultAsync();
+            var user = await this.db.Users.FirstOrDefaultAsync();
+            game.Players.Add(new GameUser() { Game = game, GameId = game.Id, User = user, UserId = user.Id });
+            await this.db.SaveChangesAsync();
+
+            // act
+            this.gameService.LeaveGame(user.Id, game.Id);
+
+            // assert
+            var count = game.Players.Count;
+            Assert.Equal(0, count);
+        }
+
+        [Fact]
+        public async Task TestSelectWinnerSelectsWinnerWithValidDataClosesGameGivesScoreDeductsScore()
+        {
+            // arrange
+            DbSeeder.SeedGames(this.db);
+            var game = new Game() { PlayersCount = 2 };
+            var users = await this.db.Users.Take(2).ToArrayAsync();
+            var winner = users[0];
+            var initialWinnerScore = winner.TotalScore;
+            var loser = users[1];
+            var initialLoserScore = loser.TotalScore;
+            var first = new GameUser() { Game = game, GameId = game.Id, User = winner, UserId = winner.Id, HasDrawn = true };
+            var second = new GameUser() { Game = game, GameId = game.Id, User = loser, UserId = loser.Id, HasDrawn = true };
+            game.Players.Add(first);
+            game.Players.Add(second);
+            this.db.Games.Add(game);
+            await this.db.SaveChangesAsync();
+
+            // act
+            this.gameService.SelectWinner(winner.Id, game.Id);
+
+            // assert
+            Assert.Equal(winner.Id, game.WinnerId);
+            Assert.Equal(GameStauts.Finished, game.Status);
+            Assert.Equal(game.PlayersCount + initialWinnerScore, winner.TotalScore);
+            Assert.Equal(initialLoserScore - 1, loser.TotalScore);
+        }
+
+        [Fact]
+        public async Task TestGetGameUserWithCorrectDataReturnsCorrectData()
+        {
+            // arrange
+            DbSeeder.SeedGames(this.db);
+            var game = await this.db.Games.FirstOrDefaultAsync();
+            var user = await this.db.Users.FirstOrDefaultAsync();
+            var gu = new GameUser() { Game = game, GameId = game.Id, User = user, UserId = user.Id };
+            game.Players.Add(gu);
+            await this.db.SaveChangesAsync();
+
+            // act
+            var result = this.gameService.GetGameUser(user.Id, game.Id);
+
+            // assert
+            Assert.Equal(gu, result);
+        }
+
+        [Fact]
+        public async Task TestGetGameUserWithIncorrectDataReturnsNull()
+        {
+            // arrange
+            DbSeeder.SeedGames(this.db);
+            var game = await this.db.Games.FirstOrDefaultAsync();
+            var user = await this.db.Users.FirstOrDefaultAsync();
+
+            // act
+            var result = this.gameService.GetGameUser(user.Id, game.Id);
+
+            // assert
+            Assert.Null(result);
+        }
     }
 }
