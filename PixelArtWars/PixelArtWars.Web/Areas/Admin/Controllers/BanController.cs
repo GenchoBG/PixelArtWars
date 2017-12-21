@@ -10,6 +10,8 @@ namespace PixelArtWars.Web.Areas.Admin.Controllers
     {
         private readonly IBanService banService;
 
+        private const string UserUnbannedSuccessMessage ="User successfully unbanned!";
+
         public BanController(IBanService banService)
         {
             this.banService = banService;
@@ -33,7 +35,7 @@ namespace PixelArtWars.Web.Areas.Admin.Controllers
         {
             this.banService.Unban(id);
 
-            this.TempData.AddSuccessMessage("User successfully unbanned!");
+            this.TempData.AddSuccessMessage(UserUnbannedSuccessMessage);
             return this.RedirectToAction("ViewBannedUsers");
         }
     }

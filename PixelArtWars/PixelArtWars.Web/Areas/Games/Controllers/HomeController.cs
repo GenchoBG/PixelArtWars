@@ -69,6 +69,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
         {
             if (!this.ModelState.IsValid)
             {
+                //ugly code because of the usage of the index page as a "multytool"
                 var errors = this.ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
                 this.TempData.AddErrorMessage(string.Join(Environment.NewLine, errors));
                 return this.RedirectToAction("Index");

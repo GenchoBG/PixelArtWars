@@ -26,8 +26,10 @@
 
 <form action="/games/play/submitdrawing" method="post" id="myForm">
     <input id="gameId" hidden value="@ViewData["id"]" />
-    <input type="submit" class="btn btn-success" data-id="svn-btn" value="Save">
-    //TODO: When pressed disable the button and play an animation
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" data-id="svn-btn" value="Save" id="savebutton"/>
+        <img src="~/images/loading.gif" id="img" style="display: none; height: 40px" alt="Saving..." />
+    </div>
 </form>
 
 @section Scripts

@@ -18,6 +18,9 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
         private readonly UserManager<User> userManager;
         private readonly IMapper mapper;
 
+        private const string EvaluateGameErrorMessage =
+            "You are not allowed to evaluate a game in which you are a participant!";
+
         public EvaluateController(IGameService gameService, UserManager<User> userManager, IMapper mapper)
         {
             this.gameService = gameService;
@@ -44,7 +47,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             if (game.Players.Any(p => p.UserId == currentUserId))
             {
-                this.TempData.AddErrorMessage("You are not allowed to evaluate a game in which you are a participant!");
+                this.TempData.AddErrorMessage(EvaluateGameErrorMessage);
                 return this.RedirectToAction("Index");
             }
 
@@ -59,7 +62,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             if (this.gameService.GetGameUser(currentUserId, gameId) != null)
             {
-                this.TempData.AddErrorMessage("You are not allowed to evaluate a game in which you are a participant!");
+                this.TempData.AddErrorMessage(EvaluateGameErrorMessage);
                 return this.RedirectToAction("Index");
             }
 

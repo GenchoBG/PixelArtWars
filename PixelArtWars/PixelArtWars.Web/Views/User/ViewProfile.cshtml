@@ -1,15 +1,16 @@
 ﻿@model UserProfilePageViewModel
 
-
-<img style="width: 200px" src="@Model.ProfilePicture" alt="Profile picture not uploaded or corrupted"/>
 <h1>@Model.UserName</h1>
+
+<img style="width: 200px" src="@(string.IsNullOrWhiteSpace(Model.ProfilePicture) ? "/images/defaultprofilepicture.png" : Model.ProfilePicture)" alt="Profile picture" />
+
 @if (Model.IsBanned)
 {
     <h2 class="text-danger">Banned</h2>
 }
-<p>Total score - >@Model.TotalScore</p>
+<p>Total score <span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span> @Model.TotalScore</p>
 
 @if (Model.UserName == User.Identity.Name)
 {
-    <a class="btn btn-primary" href="/manage/index">Manage profile</a>  
+    <a class="btn btn-primary" href="/manage/index">Manage profile</a>
 }

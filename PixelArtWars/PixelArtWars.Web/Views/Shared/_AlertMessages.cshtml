@@ -1,16 +1,18 @@
 ﻿
 @if (TempData.ContainsKey(WebConstants.TempDataErrorMessageKey))
 {
-    <h2 class="alert alert-danger">
+    <h2 class="alert alert-danger" id="erroralert">
         <span class="glyphicon glyphicon-exclamation-sign"></span>
         @TempData[WebConstants.TempDataErrorMessageKey]
+        <button class="btn" style="float: right" onclick="$('#erroralert').hide()">x</button>
     </h2>
 }
 
 @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
 {
-    <h2 class="alert alert-success">
+    <h2 class="alert alert-success" id="successalert">
         <span class="glyphicon glyphicon-exclamation-sign"></span>
         @TempData[WebConstants.TempDataSuccessMessageKey]
+        <button class="btn" style="float: right" onclick="$('#successalert').hide()">x</button>
     </h2>
 }

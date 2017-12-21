@@ -71,7 +71,7 @@ namespace PixelArtWars.Services
             var link = await this.GetImageLink(path);
             return link;
         }
-        
+
         private async Task<bool> CheckIfFileExists(string path)
         {
             try

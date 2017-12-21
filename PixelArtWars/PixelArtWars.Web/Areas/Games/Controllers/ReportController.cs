@@ -11,6 +11,8 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
         private readonly IReportService reportService;
         private readonly UserManager<User> userManager;
 
+        private const string GameReportedSuccessMessage = "Game has been reported!";
+
         public ReportController(IReportService reportService, UserManager<User> userManager)
         {
             this.reportService = reportService;
@@ -23,7 +25,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             this.reportService.CreateReport(gameId, currentUserId);
 
-            this.TempData.AddSuccessMessage("Game has been reported!");
+            this.TempData.AddSuccessMessage(GameReportedSuccessMessage);
 
             return this.RedirectToAction("Index", "Evaluate", new { id = gameId });
         }

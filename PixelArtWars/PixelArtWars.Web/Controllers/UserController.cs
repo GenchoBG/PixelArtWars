@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using PixelArtWars.Data.Models;
 using PixelArtWars.Web.Models.UserViewModels;
 using System.Threading.Tasks;
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace PixelArtWars.Web.Controllers

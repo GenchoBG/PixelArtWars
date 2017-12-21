@@ -1,6 +1,6 @@
 ﻿$("#myForm").submit(function (e) {
     e.preventDefault();
-
+    hidebutton();
     var id = document.getElementById("gameId").value;
     var imageData = canvas.toDataURL("image/png").replace("data:image/png;base64,", "");
 
@@ -23,3 +23,8 @@
         }
     });
 });
+
+function hidebutton() {
+	$("#savebutton").attr("disabled", "disabled").removeClass("btn-success").addClass("btn-disabled").val("Saving...");
+    $('#img').show();
+}

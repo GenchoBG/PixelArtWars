@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using PixelArtWars.Data.Models;
 using PixelArtWars.Services.Interfaces;
 using PixelArtWars.Web.Areas.Games.Models.GameViewModels;
+using PixelArtWars.Web.Infrastructure.Extensions;
 
 namespace PixelArtWars.Web.Areas.Games.Controllers
 {
@@ -14,6 +15,8 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
         private readonly IDrawingService drawingService;
         private readonly IMapper mapper;
         private readonly UserManager<User> userManager;
+
+        private const string DrawingSavedSuccessMessage = "Drawing saved!";
 
         public PlayController(IGameService gameService, IDrawingService drawingService, IMapper mapper, UserManager<User> userManager)
         {
@@ -64,6 +67,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
 
             await this.drawingService.SaveAsync(userId, id, drawing);
 
+            this.TempData.AddSuccessMessage(DrawingSavedSuccessMessage);
             return this.Json(new { result = "Redirect", url = this.Url.Action("Index", "Home", new { Area = "Games" }) });
         }
     }
