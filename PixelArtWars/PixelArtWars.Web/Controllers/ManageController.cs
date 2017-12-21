@@ -34,7 +34,8 @@ namespace PixelArtWars.Web.Controllers
           SignInManager<User> signInManager,
           IEmailSender emailSender,
           ILogger<ManageController> logger,
-          UrlEncoder urlEncoder, IImageService imageService)
+          UrlEncoder urlEncoder, 
+          IImageService imageService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -82,6 +83,7 @@ namespace PixelArtWars.Web.Controllers
         {
             if (!file.ContentType.Contains("image"))
             {
+                this.TempData.AddErrorMessage("You must upload an image!");
                 return this.RedirectToAction("UpdateProfilePicture");
             }
 

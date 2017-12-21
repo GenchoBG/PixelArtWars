@@ -338,7 +338,7 @@ namespace PixelArtWars.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        public async Task<IActionResult> ConfirmEmail(string userId, [FromQuery]string code)
         {
             if (userId == null || code == null)
             {
