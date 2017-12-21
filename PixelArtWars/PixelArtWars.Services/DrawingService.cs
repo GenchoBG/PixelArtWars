@@ -1,5 +1,4 @@
-﻿using System;
-using PixelArtWars.Data;
+﻿using PixelArtWars.Data;
 using PixelArtWars.Services.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +18,7 @@ namespace PixelArtWars.Services
             this.imageService = imageService;
         }
 
-        public async Task Save(string userId, int gameId, string imageData)
+        public async Task SaveAsync(string userId, int gameId, string imageData)
         {
             var playerGame = this.db
                 .Games

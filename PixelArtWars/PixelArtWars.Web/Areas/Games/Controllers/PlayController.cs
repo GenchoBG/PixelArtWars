@@ -62,7 +62,7 @@ namespace PixelArtWars.Web.Areas.Games.Controllers
         {
             var userId = this.userManager.GetUserId(this.User);
 
-            await this.drawingService.Save(userId, id, drawing);
+            await this.drawingService.SaveAsync(userId, id, drawing);
 
             return this.Json(new { result = "Redirect", url = this.Url.Action("Index", "Home", new { Area = "Games" }) });
         }

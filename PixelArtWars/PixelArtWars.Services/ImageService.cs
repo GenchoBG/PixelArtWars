@@ -1,11 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using PixelArtWars.Services.Interfaces;
-
-namespace PixelArtWars.Services 
+﻿namespace PixelArtWars.Services 
 {
     //you served me well but you were just not good enough :/
 

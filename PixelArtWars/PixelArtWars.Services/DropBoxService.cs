@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using Dropbox.Api;
-using Microsoft.AspNetCore.Http;
 using PixelArtWars.Services.Interfaces;
 
 namespace PixelArtWars.Services
@@ -31,39 +30,17 @@ namespace PixelArtWars.Services
         {
             var path = this.GetGameDrawingImagePath(userId, gameId);
 
-            //if file exists delete it or else dropbox client throws an exception
-            if (await this.CheckIfFileExists(path))
-            {
-                await this.client.Files.DeleteV2Async(path);
-            }
+            var link = await this.SaveAndUpload(path, imageData);
 
-            //generate a temp file from which we read the data
-            this.SaveDrawing(imageData, TempFilePath);
-
-            //upload the file
-            await this.UploadImageAsync(path, TempFilePath);
-
-            var link = await this.GetImageLink(path);
             return link;
         }
 
-        public async Task<string> SaveProfilePictureAsync(string userId, IFormFile file)
+        public async Task<string> SaveProfilePictureAsync(string userId, string imageData)
         {
             var path = this.GetUserProfilePicturePath(userId);
 
-            //if file exists delete it or else dropbox client throws an exception
-            if (await this.CheckIfFileExists(path))
-            {
-                await this.client.Files.DeleteV2Async(path);
-            }
+            var link = await this.SaveAndUpload(path, imageData);
 
-            //generate a temp file from which we read the data
-            await this.SaveProfilePictureAsync(file, TempFilePath);
-
-            //upload the file
-            await this.UploadImageAsync(path, TempFilePath);
-
-            var link = await this.GetImageLink(path);
             return link;
         }
 
@@ -77,26 +54,24 @@ namespace PixelArtWars.Services
 
         private string GetGameDrawingImagePath(string userId, int gameId) => $"/drawings/{gameId}_{userId}.jpeg";
 
-        private async Task<string> GetImageLink(string path)
+        private async Task<string> SaveAndUpload(string path, string imageData)
         {
-            var result = await this.client.Sharing.CreateSharedLinkWithSettingsAsync(path);
-
-            //the url that the api spits out has a query &dl=0 at the end.
-            //i replace the 0 with a 1 so that it works as a download link
-            var url = result.Url;
-            url = url.Remove(url.Length - 1, 1);
-            url += "1";
-            return url;
-        }
-
-        private async Task UploadImageAsync(string path, string localPath)
-        {
-            using (var fileStream = File.Open(TempFilePath, FileMode.Open))
+            //if file exists delete it or else dropbox client throws an exception
+            if (await this.CheckIfFileExists(path))
             {
-                await this.client.Files.UploadAsync(path, body: fileStream);
+                await this.client.Files.DeleteV2Async(path);
             }
-        }
 
+            //generate a temp file from which we read the data
+            this.SaveImage(imageData, TempFilePath);
+
+            //upload the file
+            await this.UploadImageAsync(path, TempFilePath);
+
+            var link = await this.GetImageLink(path);
+            return link;
+        }
+        
         private async Task<bool> CheckIfFileExists(string path)
         {
             try
@@ -113,7 +88,7 @@ namespace PixelArtWars.Services
             }
         }
 
-        private void SaveDrawing(string imageData, string imagePath)
+        private void SaveImage(string imageData, string imagePath)
         {
             using (var fs = new FileStream(imagePath, FileMode.Create))
             {
@@ -126,12 +101,25 @@ namespace PixelArtWars.Services
             }
         }
 
-        private async Task SaveProfilePictureAsync(IFormFile formfile, string imagePath)
+        private async Task UploadImageAsync(string path, string localPath)
         {
-            using (var fs = new FileStream(imagePath, FileMode.Create))
+            using (var fileStream = File.Open(localPath, FileMode.Open))
             {
-                await formfile.CopyToAsync(fs);
+                await this.client.Files.UploadAsync(path, body: fileStream);
             }
+        }
+
+        private async Task<string> GetImageLink(string path)
+        {
+            var result = await this.client.Sharing.CreateSharedLinkWithSettingsAsync(path);
+
+            //the url that the api spits out has a query &dl=0 at the end.
+            //i replace the 0 with a 1 so that it works as a download link
+            //dropbox api is retarded ;_;
+            var url = result.Url;
+            url = url.Remove(url.Length - 1, 1);
+            url += "1";
+            return url;
         }
     }
 }

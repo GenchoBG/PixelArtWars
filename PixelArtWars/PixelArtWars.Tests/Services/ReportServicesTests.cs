@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using PixelArtWars.Data;
 using PixelArtWars.Data.Models;
 using PixelArtWars.Data.Models.Enums;
@@ -23,8 +24,7 @@ namespace PixelArtWars.Tests.Services
             this.db = DbGenerator.GetDbContext();
             DbSeeder.SeedNormalUsers(this.db);
             DbSeeder.SeedGames(this.db);
-            var gameService = new GameService(this.db);
-            this.reportService = new ReportService(this.db, gameService);
+            this.reportService = new ReportService(this.db, new GameService(this.db));
         }
 
         [Fact]
@@ -123,6 +123,7 @@ namespace PixelArtWars.Tests.Services
 
             // assert
             Assert.Equal(ReportStatus.Closed, report.Status);
+            Assert.Equal(GameStauts.Finished, report.Game.Status);
         }
 
         private Report GetLegitReport()

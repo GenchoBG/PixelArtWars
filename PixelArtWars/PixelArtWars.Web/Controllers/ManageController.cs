@@ -85,7 +85,7 @@ namespace PixelArtWars.Web.Controllers
                 return this.RedirectToAction("UpdateProfilePicture");
             }
 
-            var image = await this.imageService.SaveProfilePictureAsync(this.User.Identity.Name, file);
+            var image = await this.imageService.SaveProfilePictureAsync(this.User.Identity.Name, await file.GetData());
 
             var user = await this.userManager.FindByNameAsync(this.User.Identity.Name);
 
